@@ -51,7 +51,7 @@ class TestControllerTest {
         try {
             var response = client.toBlocking().retrieve("/no-tx", String.class);
             System.out.println(response);
-            Assertions.assertEquals("Hello world", response);
+            Assertions.assertEquals("ID\n1\n", response);
         } catch (HttpClientResponseException e) {
             Assertions.fail("GET on /no-tx should not throw an exception");
         }
