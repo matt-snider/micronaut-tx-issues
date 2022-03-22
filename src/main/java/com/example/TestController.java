@@ -32,24 +32,16 @@ public class TestController {
     }
 
     @Transactional
-    @Get("/create")
-    public void create() {
-        db.execute("CREATE TABLE IF NOT EXISTS TEST (id int PRIMARY KEY)");
-    }
-
-    @Transactional
     @Get("/insert")
     public void insert() {
         db.execute("INSERT INTO TEST VALUES (1)");
-        throw new RuntimeException("Roll back.");
     }
 
     @Transactional
-    @Get("/get")
-    @Produces(MediaType.TEXT_PLAIN)
-    public String get() {
-        var result = db.fetch("SELECT * FROM TEST");
-        return result.formatCSV();
+    @Get("/insert-and-rollback")
+    public void insertAndRollback() {
+        db.execute("INSERT INTO TEST VALUES (2)");
+        throw new RuntimeException("Roll back.");
     }
 
     @Get("/no-tx")
